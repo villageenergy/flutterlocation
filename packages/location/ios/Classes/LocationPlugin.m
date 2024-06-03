@@ -160,11 +160,14 @@
       result(@2);
     }
   } else if ([call.method isEqualToString:@"serviceEnabled"]) {
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
     if ([CLLocationManager locationServicesEnabled]) {
       result(@1);
     } else {
       result(@0);
     }
+    return;
+    });
   } else if ([call.method isEqualToString:@"requestService"]) {
     if ([CLLocationManager locationServicesEnabled]) {
       result(@1);
